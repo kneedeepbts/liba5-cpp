@@ -1,3 +1,8 @@
 # liba5-cpp
-Rewrite of the liba53 library as a pure C++ library.  The library is expanded to
-include A5/1 and A5/2 also.
+Rewrite of the liba53 library as a pure C++ library.  The library includes:
+ * A5/3 GSM
+ * A5/4 GSM
+ * A5/3 ECSD
+ * A5/4 ECSD
+ * GEA3 GPRS
+ * GEA4 GPRS

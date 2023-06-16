@@ -1,5 +1,5 @@
-#ifndef LIBA5_GEA3_H
-#define LIBA5_GEA3_H
+#ifndef LIBA5_GEA4_H
+#define LIBA5_GEA4_H
 
 #include <cstdint>
 
@@ -8,9 +8,9 @@
 // FIXME: Use smart pointers.
 
 namespace kneedeepbts {
-    class GEA3 {
+    class GEA4 {
         public:
-            GEA3(uint32_t input, bool direction, uint8_t * kc, uint8_t klen, uint16_t m);
+            GEA4(uint32_t input, bool direction, uint8_t * kc, uint8_t klen, uint16_t m);
 
             // Output
             uint8_t * m_output = nullptr;
@@ -28,4 +28,4 @@ namespace kneedeepbts {
     };
 }
 
-#endif //LIBA5_GEA3_H
+#endif //LIBA5_GEA4_H

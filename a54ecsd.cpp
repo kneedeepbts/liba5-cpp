@@ -1,4 +1,4 @@
-#include "a53ecsd.h"
+#include "a54ecsd.h"
 
 #include <cassert>
 
@@ -6,21 +6,20 @@
 #include "spdlog/spdlog.h"
 
 namespace kneedeepbts {
-    A53ECSD::A53ECSD(uint8_t* kc, uint8_t klen, uint32_t count) {
+    A54ECSD::A54ECSD(uint8_t* kc, uint8_t klen, uint32_t count) {
         m_kc = kc;
         m_klen = klen;
         m_count = count;
     }
 
-    void A53ECSD::run() {
-        assert(m_klen == 64);
+    void A54ECSD::run() {
+        assert(m_klen == 128);
         assert(m_count < 0x003FFFFF);
         SPDLOG_DEBUG("m_klen: {:d}, m_count: 0x{:X}", m_klen, m_count);
-        // NOTE: The A5/3 specification only allows KLEN to be 64 bits.
+        // NOTE: The A5/4 specification only allows KLEN to be 128 bits.
         KasumiKey ckk = KasumiKey{};
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             ckk.subkeys[i] = ((uint16_t)m_kc[i * 2] << 8) | (uint16_t)m_kc[(i * 2) + 1];
-            ckk.subkeys[i + 4] = ((uint16_t)m_kc[i * 2] << 8) | (uint16_t)m_kc[(i * 2) + 1];
         }
         SPDLOG_TRACE("ckk[0]: 0x{:04X}, ckk[1]: 0x{:04X}, ckk[2]: 0x{:04X}, ckk[3]: 0x{:04X}, ckk[4]: 0x{:04X}, ckk[5]: 0x{:04X}, ckk[6]: 0x{:04X}, ckk[7]: 0x{:04X}", ckk.subkeys[0], ckk.subkeys[1], ckk.subkeys[2], ckk.subkeys[3], ckk.subkeys[4], ckk.subkeys[5], ckk.subkeys[6], ckk.subkeys[7]);
         KGCore kgc = KGCore(0xF0, 0x00, m_count, false, 0x0000, ckk, 696);
