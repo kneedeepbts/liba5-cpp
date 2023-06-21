@@ -5,16 +5,10 @@
  * Using spec at https://www.etsi.org/deliver/etsi_ts/135200_135299/135206/14.00.00_60/ts_135206v140000p.pdf
  */
 
-/*** Includes ***/
 #include <cstdint>
 #include <array>
 #include "rijndael.h"
 
-/*** Global Variables ***/
-
-/*** Functions ***/
-
-/*** Classes ***/
 namespace kneedeepbts::crypto {
     typedef struct MilenageKey { std::array<uint8_t, 16> value; } MilenageKey;
 

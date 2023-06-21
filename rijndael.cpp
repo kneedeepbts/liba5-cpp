@@ -1,11 +1,10 @@
-/*
- * Using spec at https://www.etsi.org/deliver/etsi_ts/135200_135299/135206/14.00.00_60/ts_135206v140000p.pdf
- */
-
 #include "rijndael.h"
 
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+#include "spdlog/spdlog.h"
+
 namespace kneedeepbts::crypto {
-/*--------------------- Rijndael S box table ----------------------*/
+    /*--------------------- Rijndael S box table ----------------------*/
     static uint8_t S[256] = {
             99, 124, 119, 123, 242, 107, 111, 197, 48, 1, 103, 43, 254, 215, 171, 118,
             202, 130, 201, 125, 250, 89, 71, 240, 173, 212, 162, 175, 156, 164, 114, 192,
@@ -24,7 +23,8 @@ namespace kneedeepbts::crypto {
             225, 248, 152, 17, 105, 217, 142, 148, 155, 30, 135, 233, 206, 85, 40, 223,
             140, 161, 137, 13, 191, 230, 66, 104, 65, 153, 45, 15, 176, 84, 187, 22,
     };
-/*------- This array does the multiplication by x in GF(2^8) ------*/
+
+    /*------- This array does the multiplication by x in GF(2^8) ------*/
     static uint8_t Xtime[256] = {
             0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30,
             32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62,
@@ -57,8 +57,15 @@ namespace kneedeepbts::crypto {
             // roundKeys is [11][4][4], which works to [(x*16) + (y*4) + z]
             roundKeys[(0 * 16) + ((i & 0x03) * 4) + (i >> 2)] = m_key.value[i];
         }
-        roundConst = 1;
+        SPDLOG_TRACE(
+                "Round key  0: {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X}",
+                roundKeys[0], roundKeys[4], roundKeys[8], roundKeys[12],
+                roundKeys[1], roundKeys[5], roundKeys[9], roundKeys[13],
+                roundKeys[2], roundKeys[6], roundKeys[10], roundKeys[14],
+                roundKeys[3], roundKeys[7], roundKeys[11], roundKeys[15]
+                     );
 
+        roundConst = 1;
         /* now calculate round keys */
         for (uint8_t i = 1; i < 11; i++) {
             roundKeys[(i * 16) + (0 * 4) + (0)] = S[roundKeys[((i - 1) * 16) + (1 * 4) + (3)]] ^ roundKeys[((i - 1) * 16) + (0 * 4) + (0)] ^ roundConst;
@@ -72,11 +79,21 @@ namespace kneedeepbts::crypto {
             }
             /* update round constant */
             roundConst = Xtime[roundConst];
+            SPDLOG_TRACE(
+                    "Round key  {:d}: {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X}", i,
+                    roundKeys[(i * 16) + 0], roundKeys[(i * 16) + 4], roundKeys[(i * 16) + 8], roundKeys[(i * 16) + 12],
+                    roundKeys[(i * 16) + 1], roundKeys[(i * 16) + 5], roundKeys[(i * 16) + 9], roundKeys[(i * 16) + 13],
+                    roundKeys[(i * 16) + 2], roundKeys[(i * 16) + 6], roundKeys[(i * 16) + 10], roundKeys[(i * 16) + 14],
+                    roundKeys[(i * 16) + 3], roundKeys[(i * 16) + 7], roundKeys[(i * 16) + 11], roundKeys[(i * 16) + 15]
+            );
+
         }
     }
 
     std::array<uint8_t, 16> kneedeepbts::crypto::Rijndael::encrypt(std::array<uint8_t, 16> value) {
         std::array<uint8_t, 16> output{};
+
+        setup_round_keys();
 
         /* initialize state array from input byte string */
         for (uint8_t i = 0; i < 16; i++) {
@@ -112,6 +129,14 @@ namespace kneedeepbts::crypto {
                 state[(i * 4) + j] ^= roundKeys[(round * 16) + (i * 4) + (j)];
             }
         }
+
+        SPDLOG_TRACE(
+                "add keys({:d}): {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X}", round,
+                state[0], state[4], state[8], state[12],
+                state[1], state[5], state[9], state[13],
+                state[2], state[6], state[10], state[14],
+                state[3], state[7], state[11], state[15]
+        );
     }
 
     void kneedeepbts::crypto::Rijndael::ByteSub() {
@@ -120,6 +145,14 @@ namespace kneedeepbts::crypto {
                 state[(i * 4) + j] = S[state[(i * 4) + j]];
             }
         }
+
+        SPDLOG_TRACE(
+                "Substitution(): {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X}",
+                state[0], state[4], state[8], state[12],
+                state[1], state[5], state[9], state[13],
+                state[2], state[6], state[10], state[14],
+                state[3], state[7], state[11], state[15]
+        );
     }
 
     void kneedeepbts::crypto::Rijndael::ShiftRow() {
@@ -146,6 +179,14 @@ namespace kneedeepbts::crypto {
         state[15] = state[14]; // state[3][3] = state[3][2];
         state[14] = state[13]; // state[3][2] = state[3][1];
         state[13] = temp; // state[3][1] = temp;
+
+        SPDLOG_TRACE(
+                "Row shift(): {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X}",
+                state[0], state[4], state[8], state[12],
+                state[1], state[5], state[9], state[13],
+                state[2], state[6], state[10], state[14],
+                state[3], state[7], state[11], state[15]
+        );
     }
 
     void kneedeepbts::crypto::Rijndael::MixColumn() {
@@ -165,5 +206,13 @@ namespace kneedeepbts::crypto {
             tmp = Xtime[state[12 + i] ^ tmp0];
             state[12 + i] ^= temp ^ tmp;
         }
+
+        SPDLOG_TRACE(
+                "mix column(): {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X} {:02X}{:02X}{:02X}{:02X}",
+                state[0], state[4], state[8], state[12],
+                state[1], state[5], state[9], state[13],
+                state[2], state[6], state[10], state[14],
+                state[3], state[7], state[11], state[15]
+        );
     }
 }
