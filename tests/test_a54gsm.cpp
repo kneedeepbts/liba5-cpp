@@ -14,7 +14,7 @@ TEST_CASE("Testing the A54GSM class with (3.7) Test Set 5") {
     uint8_t t_klen = 128;
     uint32_t t_count = 0x000A59B4;
 
-    kneedeepbts::A54GSM dut_a54gsm(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A54GSM dut_a54gsm(t_kc, t_klen, t_count);
     dut_a54gsm.run();
 
     uint8_t expected_block1[15] = {0xDC, 0xE6, 0x43, 0x62, 0xAB, 0x5F, 0x89, 0xC1, 0x1E, 0xF0, 0xB3, 0x05, 0x16, 0x65, 0x40};

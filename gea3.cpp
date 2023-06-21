@@ -5,7 +5,7 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #include "spdlog/spdlog.h"
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     GEA3::GEA3(uint32_t input, bool direction, uint8_t * kc, uint8_t klen, uint16_t m) {
         m_input = input;
         m_dir = direction;

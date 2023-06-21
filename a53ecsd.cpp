@@ -5,7 +5,7 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #include "spdlog/spdlog.h"
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     A53ECSD::A53ECSD(uint8_t* kc, uint8_t klen, uint32_t count) {
         m_kc = kc;
         m_klen = klen;

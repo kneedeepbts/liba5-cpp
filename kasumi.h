@@ -2,6 +2,7 @@
 #define LIBA5_KASUMI_H
 
 #include <cstdint>
+#include <array>
 
 /* Kasumi block cipher
  * Algorithm written from Wikipedia: https://en.wikipedia.org/wiki/KASUMI
@@ -10,8 +11,8 @@
  *    https://github.com/RangeNetworks/liba53
  */
 
-namespace kneedeepbts {
-    typedef struct KasumiKey { uint16_t subkeys[8]; } KasumiKey;
+namespace kneedeepbts::crypto {
+    typedef struct KasumiKey { std::array<uint16_t, 8> subkeys; } KasumiKey;
 
     KasumiKey operator ^ (const KasumiKey& lhs, const KasumiKey& rhs);
 
@@ -25,10 +26,6 @@ namespace kneedeepbts {
         private:
             // Main Keys
             KasumiKey m_key{};
-            KasumiKey m_key_prime{};
-
-            // Magic Keys
-            KasumiKey m_nums{0x0123, 0x4567, 0x89AB, 0xCDEF, 0xFEDC, 0xBA98, 0x7654, 0x3210};
 
             // Round Keys
             KasumiKey m_kl1{};
@@ -41,7 +38,6 @@ namespace kneedeepbts {
             KasumiKey m_ki3{};
             uint8_t m_subkey_index = 0;
 
-            // Helper Methods
             void setup_round_keys();
             uint32_t func_fl(uint32_t input);
             uint16_t func_fi(uint16_t input, uint16_t ki_key);

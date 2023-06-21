@@ -7,7 +7,7 @@
 
 // FIXME: Use smart pointers.
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     class GEA3 {
         public:
             GEA3(uint32_t input, bool direction, uint8_t * kc, uint8_t klen, uint16_t m);

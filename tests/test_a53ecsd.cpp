@@ -14,7 +14,7 @@ TEST_CASE("Testing the A53ECSD class with (4.3) Test Set 1") {
     uint8_t t_klen = 64;
     uint32_t t_count = 0x0024F20F;
 
-    kneedeepbts::A53ECSD dut_a53ecsd(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A53ECSD dut_a53ecsd(t_kc, t_klen, t_count);
     dut_a53ecsd.run();
 
     uint8_t expected_block1[44] = {
@@ -42,7 +42,7 @@ TEST_CASE("Testing the A53ECSD class with (4.4) Test Set 2") {
     uint8_t t_klen = 64;
     uint32_t t_count = 0x00061272;
 
-    kneedeepbts::A53ECSD dut_a53ecsd(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A53ECSD dut_a53ecsd(t_kc, t_klen, t_count);
     dut_a53ecsd.run();
 
     uint8_t expected_block1[44] = {
@@ -70,7 +70,7 @@ TEST_CASE("Testing the A53ECSD class with (4.5) Test Set 3") {
     uint8_t t_klen = 64;
     uint32_t t_count = 0x0033FD3F;
 
-    kneedeepbts::A53ECSD dut_a53ecsd(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A53ECSD dut_a53ecsd(t_kc, t_klen, t_count);
     dut_a53ecsd.run();
 
     uint8_t expected_block1[44] = {

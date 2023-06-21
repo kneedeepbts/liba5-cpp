@@ -7,7 +7,7 @@
 
 // FIXME: Use smart pointers.
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     class A54GSM {
         public:
             A54GSM(uint8_t* kc, uint8_t klen, uint32_t count);

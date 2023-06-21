@@ -3,7 +3,7 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #include "spdlog/spdlog.h"
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     KGCore::KGCore(uint8_t ca, uint8_t cb, uint32_t cc, bool cd, uint16_t ce, KasumiKey ck, uint32_t cl) {
         m_ca = ca;
         m_cb = cb;

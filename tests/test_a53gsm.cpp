@@ -14,7 +14,7 @@ TEST_CASE("Testing the A53GSM class with (3.3) Test Set 1") {
     uint8_t t_klen = 64;
     uint32_t t_count = 0x0024F20F;
 
-    kneedeepbts::A53GSM dut_a53gsm(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A53GSM dut_a53gsm(t_kc, t_klen, t_count);
     dut_a53gsm.run();
 
     uint8_t expected_block1[15] = {0x88, 0x9E, 0xEA, 0xAF, 0x9E, 0xD1, 0xBA, 0x1A, 0xBB, 0xD8, 0x43, 0x62, 0x32, 0xE4, 0x40};
@@ -33,7 +33,7 @@ TEST_CASE("Testing the A53GSM class with (3.4) Test Set 2") {
     uint8_t t_klen = 64;
     uint32_t t_count = 0x00061272;
 
-    kneedeepbts::A53GSM dut_a53gsm(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A53GSM dut_a53gsm(t_kc, t_klen, t_count);
     dut_a53gsm.run();
 
     uint8_t expected_block1[15] = {0xFB, 0x4D, 0x5F, 0xBC, 0xEE, 0x13, 0xA3, 0x33, 0x89, 0x28, 0x56, 0x86, 0xE9, 0xA5, 0xC0};
@@ -51,7 +51,7 @@ TEST_CASE("Testing the A53GSM class with (3.5) Test Set 3") {
     uint8_t t_klen = 64;
     uint32_t t_count = 0x0033FD3F;
 
-    kneedeepbts::A53GSM dut_a53gsm(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A53GSM dut_a53gsm(t_kc, t_klen, t_count);
     dut_a53gsm.run();
 
     uint8_t expected_block1[15] = {0x0E, 0x40, 0x15, 0x75, 0x5A, 0x33, 0x64, 0x69, 0xC3, 0xDD, 0x86, 0x80, 0xE3, 0x03, 0x40};

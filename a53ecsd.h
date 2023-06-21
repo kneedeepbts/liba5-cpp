@@ -7,7 +7,7 @@
 
 // FIXME: Use smart pointers.
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     class A53ECSD {
         public:
             A53ECSD(uint8_t * kc, uint8_t klen, uint32_t count);

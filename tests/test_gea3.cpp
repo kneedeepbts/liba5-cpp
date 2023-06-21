@@ -16,7 +16,7 @@ TEST_CASE("Testing the GEA3 class with (5.3) Test Set 1") {
     bool t_dir = true;
     uint16_t t_m = 51;
 
-    kneedeepbts::GEA3 dut_gea3(t_input, t_dir, t_kc, t_klen, t_m);
+    kneedeepbts::crypto::GEA3 dut_gea3(t_input, t_dir, t_kc, t_klen, t_m);
     dut_gea3.run();
 
     uint8_t expected[51] = {
@@ -40,7 +40,7 @@ TEST_CASE("Testing the GEA3 class with (5.4) Test Set 2") {
     bool t_dir = false;
     uint16_t t_m = 51;
 
-    kneedeepbts::GEA3 dut_gea3(t_input, t_dir, t_kc, t_klen, t_m);
+    kneedeepbts::crypto::GEA3 dut_gea3(t_input, t_dir, t_kc, t_klen, t_m);
     dut_gea3.run();
 
     uint8_t expected[51] = {
@@ -64,7 +64,7 @@ TEST_CASE("Testing the GEA3 class with (5.4) Test Set 3") {
     bool t_dir = false;
     uint16_t t_m = 51;
 
-    kneedeepbts::GEA3 dut_gea3(t_input, t_dir, t_kc, t_klen, t_m);
+    kneedeepbts::crypto::GEA3 dut_gea3(t_input, t_dir, t_kc, t_klen, t_m);
     dut_gea3.run();
 
     uint8_t expected[51] = {

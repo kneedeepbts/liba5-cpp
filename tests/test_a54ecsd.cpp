@@ -14,7 +14,7 @@ TEST_CASE("Testing the A54ECSD class with (4.7) Test Set 5") {
     uint8_t t_klen = 128;
     uint32_t t_count = 0x0A59B4;
 
-    kneedeepbts::A54ECSD dut_a54ecsd(t_kc, t_klen, t_count);
+    kneedeepbts::crypto::A54ECSD dut_a54ecsd(t_kc, t_klen, t_count);
     dut_a54ecsd.run();
 
     uint8_t expected_block1[44] = {

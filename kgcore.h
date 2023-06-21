@@ -11,7 +11,7 @@
 // FIXME: Add a logging library to this class.
 // FIXME: Use smart pointers.
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     class KGCore {
         public:
             KGCore(uint8_t ca, uint8_t cb, uint32_t cc, bool cd, uint16_t ce, KasumiKey ck, uint32_t cl);

@@ -6,7 +6,7 @@
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
 #include "spdlog/spdlog.h"
 
-namespace kneedeepbts {
+namespace kneedeepbts::crypto {
     uint16_t S7[128] = {
         54, 50, 62, 56, 22, 34, 94, 96, 38,  6, 63, 93,  2, 18,123, 33,
         55,113, 39,114, 21, 67, 65, 12, 47, 73, 46, 27, 25,111,124, 81,
@@ -69,14 +69,14 @@ namespace kneedeepbts {
         return result;
     }
 
-    Kasumi::Kasumi(KasumiKey key) {
-        m_key = key;
-        m_key_prime = m_key ^ m_nums;
+    Kasumi::Kasumi(KasumiKey key) : m_key(key) {
+        // Set up the round keys
+        setup_round_keys();
     }
 
     uint64_t Kasumi::run(uint64_t input) {
         // Set up the round keys
-        setup_round_keys();
+        //setup_round_keys();
 
         // Run the eight rounds
         SPDLOG_DEBUG("input: 0x{:X}", input);
@@ -129,16 +129,18 @@ namespace kneedeepbts {
     }
 
     void Kasumi::setup_round_keys() {
+        KasumiKey magic_nums{0x0123, 0x4567, 0x89AB, 0xCDEF, 0xFEDC, 0xBA98, 0x7654, 0x3210};
+        KasumiKey key_prime = m_key ^ magic_nums;
         for (int i = 0; i < 8; i++) {
             // Set each round key, one subkey at a time.
             m_kl1.subkeys[i] = std::rotl(m_key.subkeys[(i + 0) % 8], 1);
-            m_kl2.subkeys[i] = m_key_prime.subkeys[(i + 2) % 8];
+            m_kl2.subkeys[i] = key_prime.subkeys[(i + 2) % 8];
             m_ko1.subkeys[i] = std::rotl(m_key.subkeys[(i + 1) % 8], 5);
             m_ko2.subkeys[i] = std::rotl(m_key.subkeys[(i + 5) % 8], 8);
             m_ko3.subkeys[i] = std::rotl(m_key.subkeys[(i + 6) % 8], 13);
-            m_ki1.subkeys[i] = m_key_prime.subkeys[(i + 4) % 8];
-            m_ki2.subkeys[i] = m_key_prime.subkeys[(i + 3) % 8];
-            m_ki3.subkeys[i] = m_key_prime.subkeys[(i + 7) % 8];
+            m_ki1.subkeys[i] = key_prime.subkeys[(i + 4) % 8];
+            m_ki2.subkeys[i] = key_prime.subkeys[(i + 3) % 8];
+            m_ki3.subkeys[i] = key_prime.subkeys[(i + 7) % 8];
         }
         SPDLOG_TRACE("_KLi1_r[0] = 0x{:04X}; _KLi1_r[1] = 0x{:04X}; _KLi1_r[2] = 0x{:04X}; _KLi1_r[3] = 0x{:04X}; _KLi1_r[4] = 0x{:04X}; _KLi1_r[5] = 0x{:04X}; _KLi1_r[6] = 0x{:04X}; _KLi1_r[7] = 0x{:04X}", m_kl1.subkeys[0], m_kl1.subkeys[1], m_kl1.subkeys[2], m_kl1.subkeys[3], m_kl1.subkeys[4], m_kl1.subkeys[5], m_kl1.subkeys[6], m_kl1.subkeys[7]);
         SPDLOG_TRACE("_KLi2_r[0] = 0x{:04X}; _KLi2_r[1] = 0x{:04X}; _KLi2_r[2] = 0x{:04X}; _KLi2_r[3] = 0x{:04X}; _KLi2_r[4] = 0x{:04X}; _KLi2_r[5] = 0x{:04X}; _KLi2_r[6] = 0x{:04X}; _KLi2_r[7] = 0x{:04X}", m_kl2.subkeys[0], m_kl2.subkeys[1], m_kl2.subkeys[2], m_kl2.subkeys[3], m_kl2.subkeys[4], m_kl2.subkeys[5], m_kl2.subkeys[6], m_kl2.subkeys[7]);

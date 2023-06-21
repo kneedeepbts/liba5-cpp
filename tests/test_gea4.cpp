@@ -16,7 +16,7 @@ TEST_CASE("Testing the GEA4 class with (5.7) Test Set 5") {
     bool t_dir = false;
     uint16_t t_m = 51;
 
-    kneedeepbts::GEA4 dut_gea4(t_input, t_dir, t_kc, t_klen, t_m);
+    kneedeepbts::crypto::GEA4 dut_gea4(t_input, t_dir, t_kc, t_klen, t_m);
     dut_gea4.run();
 
     uint8_t expected[51] = {

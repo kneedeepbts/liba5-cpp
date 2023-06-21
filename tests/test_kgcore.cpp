@@ -10,7 +10,7 @@
 
 TEST_CASE("Testing the KGCore class with (3.3) Test Set 1") {
     spdlog::set_level(spdlog::level::info);
-    kneedeepbts::KasumiKey t_key{0x2BD6, 0x459F, 0x82C5, 0xBC00, 0x2BD6, 0x459F, 0x82C5, 0xBC00};
+    kneedeepbts::crypto::KasumiKey t_key{0x2BD6, 0x459F, 0x82C5, 0xBC00, 0x2BD6, 0x459F, 0x82C5, 0xBC00};
     uint8_t t_ca = 0x0F;
     uint8_t t_cb = 0;
     uint32_t t_cc = 0x0024F20F;
@@ -18,7 +18,7 @@ TEST_CASE("Testing the KGCore class with (3.3) Test Set 1") {
     uint16_t t_ce = 0; // Not used, future use.
     uint32_t t_cl = 228;
 
-    kneedeepbts::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
+    kneedeepbts::crypto::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
     dut_kgcore.run();
 
     uint8_t expected[8 * 4] = {
@@ -34,7 +34,7 @@ TEST_CASE("Testing the KGCore class with (3.3) Test Set 1") {
 
 TEST_CASE("Testing the KGCore class with (3.4) Test Set 2") {
     spdlog::set_level(spdlog::level::info);
-    kneedeepbts::KasumiKey t_key{0x952C, 0x4910, 0x4881, 0xFF48, 0x952C, 0x4910, 0x4881, 0xFF48};
+    kneedeepbts::crypto::KasumiKey t_key{0x952C, 0x4910, 0x4881, 0xFF48, 0x952C, 0x4910, 0x4881, 0xFF48};
     uint8_t t_ca = 0x0F;
     uint8_t t_cb = 0;
     uint32_t t_cc = 0x00061272;
@@ -42,7 +42,7 @@ TEST_CASE("Testing the KGCore class with (3.4) Test Set 2") {
     uint16_t t_ce = 0; // Not used, future use.
     uint32_t t_cl = 228;
 
-    kneedeepbts::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
+    kneedeepbts::crypto::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
     dut_kgcore.run();
 
     uint8_t expected[8 * 4] = {
@@ -58,7 +58,7 @@ TEST_CASE("Testing the KGCore class with (3.4) Test Set 2") {
 
 TEST_CASE("Testing the KGCore class with (3.5) Test Set 3") {
     spdlog::set_level(spdlog::level::info);
-    kneedeepbts::KasumiKey t_key{0xEFA8, 0xB222, 0x9E72, 0x0C2A, 0xEFA8, 0xB222, 0x9E72, 0x0C2A};
+    kneedeepbts::crypto::KasumiKey t_key{0xEFA8, 0xB222, 0x9E72, 0x0C2A, 0xEFA8, 0xB222, 0x9E72, 0x0C2A};
     uint8_t t_ca = 0x0F;
     uint8_t t_cb = 0;
     uint32_t t_cc = 0x0033FD3F;
@@ -66,7 +66,7 @@ TEST_CASE("Testing the KGCore class with (3.5) Test Set 3") {
     uint16_t t_ce = 0; // Not used, future use.
     uint32_t t_cl = 228;
 
-    kneedeepbts::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
+    kneedeepbts::crypto::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
     dut_kgcore.run();
 
     uint8_t expected[8 * 4] = {
@@ -82,7 +82,7 @@ TEST_CASE("Testing the KGCore class with (3.5) Test Set 3") {
 
 TEST_CASE("Testing the KGCore class with (3.6) Test Set 4") {
     spdlog::set_level(spdlog::level::info);
-    kneedeepbts::KasumiKey t_key{0x5ACB, 0x1D64, 0x4C0D, 0x5120, 0x4EA5, 0x5ACB, 0x1D64, 0x4C0D};
+    kneedeepbts::crypto::KasumiKey t_key{0x5ACB, 0x1D64, 0x4C0D, 0x5120, 0x4EA5, 0x5ACB, 0x1D64, 0x4C0D};
     uint8_t t_ca = 0x0F;
     uint8_t t_cb = 0;
     uint32_t t_cc = 0x00156B26;
@@ -90,7 +90,7 @@ TEST_CASE("Testing the KGCore class with (3.6) Test Set 4") {
     uint16_t t_ce = 0; // Not used, future use.
     uint32_t t_cl = 228;
 
-    kneedeepbts::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
+    kneedeepbts::crypto::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
     dut_kgcore.run();
 
     uint8_t expected[8 * 4] = {
@@ -106,7 +106,7 @@ TEST_CASE("Testing the KGCore class with (3.6) Test Set 4") {
 
 TEST_CASE("Testing the KGCore class with (3.7) Test Set 5") {
     spdlog::set_level(spdlog::level::info);
-    kneedeepbts::KasumiKey t_key{0xD3C5, 0xD592, 0x327F, 0xB11C, 0x4035, 0xC668, 0x0AF8, 0xC6D1};
+    kneedeepbts::crypto::KasumiKey t_key{0xD3C5, 0xD592, 0x327F, 0xB11C, 0x4035, 0xC668, 0x0AF8, 0xC6D1};
     uint8_t t_ca = 0x0F;
     uint8_t t_cb = 0;
     uint32_t t_cc = 0x000A59B4;
@@ -114,7 +114,7 @@ TEST_CASE("Testing the KGCore class with (3.7) Test Set 5") {
     uint16_t t_ce = 0; // Not used, future use.
     uint32_t t_cl = 228;
 
-    kneedeepbts::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
+    kneedeepbts::crypto::KGCore dut_kgcore(t_ca, t_cb, t_cc, t_cd, t_ce, t_key, t_cl);
     dut_kgcore.run();
 
     uint8_t expected[8 * 4] = {
