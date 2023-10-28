@@ -1,5 +1,6 @@
 # This file is managed by Conan, contents will be overwritten.
 # To keep your changes, remove these comment lines, but the plugin won't be able to modify your requirements
+import os
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, cmake_layout, CMakeToolchain
@@ -34,6 +35,10 @@ class ConanApplication(ConanFile):
     def layout(self):
         cmake_layout(self)
 
+        self.folders.source = "src"
+        self.folders.build = os.path.join("build", str(self.settings.build_type))
+        self.folders.generators = os.path.join(self.folders.build, "generators")
+
     def generate(self):
         tc = CMakeToolchain(self)
         tc.user_presets_path = False
@@ -54,4 +59,4 @@ class ConanApplication(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = ["liba5"]
+        self.cpp.package.libs = ["liba5"]
