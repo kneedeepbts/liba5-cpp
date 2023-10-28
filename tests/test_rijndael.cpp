@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-#include "../rijndael.h"
+#include "../src/rijndael.h"
 
 /*
  * Test Data has been pulled from "3GPP TS 35.207 V12.0.0 (2014-10)".

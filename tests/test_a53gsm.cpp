@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-#include "../a53gsm.h"
+#include "../src/a53gsm.h"
 
 /*
  * Test Data has been pulled from "3GPP TS 55.217 V6.1.0 (2002-12)".

@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(spdlog)
 
-add_library(liba5 library.cpp kasumi.cpp kasumi.h a53gsm.cpp a53gsm.h kgcore.cpp kgcore.h gea3.cpp gea3.h a53ecsd.cpp a53ecsd.h a54gsm.cpp a54gsm.h a54ecsd.cpp a54ecsd.h gea4.cpp gea4.h milenage.cpp milenage.h rijndael.cpp rijndael.h utilities.cpp utilities.h)
+add_library(liba5 src/library.cpp src/kasumi.cpp src/kasumi.h src/a53gsm.cpp src/a53gsm.h src/kgcore.cpp src/kgcore.h src/gea3.cpp src/gea3.h src/a53ecsd.cpp src/a53ecsd.h src/a54gsm.cpp src/a54gsm.h src/a54ecsd.cpp src/a54ecsd.h src/gea4.cpp src/gea4.h src/milenage.cpp src/milenage.h src/rijndael.cpp src/rijndael.h src/utilities.cpp src/utilities.h)
 
 target_link_libraries(liba5 spdlog::spdlog)
 

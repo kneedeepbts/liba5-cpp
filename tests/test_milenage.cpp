@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-#include "../milenage.h"
+#include "../src/milenage.h"
 
 /*
  * Test Data has been pulled from "3GPP TS 35.207 V12.0.0 (2014-10)".

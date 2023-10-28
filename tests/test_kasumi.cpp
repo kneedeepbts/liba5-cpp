@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-#include "../kasumi.h"
+#include "../src/kasumi.h"
 
 /*
  * Test Data has been pulled from "3GPP TS 35.203 V17.0.0 (2022-03)".
